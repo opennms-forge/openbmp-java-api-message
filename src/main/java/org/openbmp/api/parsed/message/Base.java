@@ -8,10 +8,6 @@ package org.openbmp.api.parsed.message;
  *
  */
 
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.supercsv.cellprocessor.ift.CellProcessor;
@@ -132,77 +128,6 @@ public abstract class Base {
      * @return array of cell processors
      */
     protected abstract CellProcessor[] getProcessors();
-
-
-    /**
-     * Get rowMap as Json
-     *
-     * @return JSON String representing the parsed rowMap
-     */
-    public String toJson() {
-        StringWriter swriter = new StringWriter();
-        JsonFactory jfac = new JsonFactory();
-        String json = "{}";
-
-        try {
-            JsonGenerator jgen = jfac.createJsonGenerator(swriter);
-            jgen.setCodec(new ObjectMapper());
-
-            // Start root object/array list
-            jgen.writeStartArray();
-
-
-            /*
-             * Iterate the row map and write each entry as an object
-             */
-            for (int i = 0; i < rowMap.size(); i++) {
-                jgen.writeStartObject();
-
-                for (Map.Entry<String, Object> record : rowMap.get(i).entrySet()) {
-                    jgen.writeObjectField(record.getKey(), record.getValue());
-                }
-
-                jgen.writeEndObject();
-            }
-
-            // end the root object
-            jgen.writeEndArray();
-
-            jgen.close();
-
-            json = swriter.toString();
-
-        } catch (JsonGenerationException e) {
-            logger.error("Json exception: ", e);
-        } catch (IOException e) {
-            logger.error("Json io exception error: ", e);
-        }
-
-        return json;
-    }
-
-    /**
-     * Get rowMap as Pretty Json
-     *
-     * @return Pretty formatted JSON String representing the parsed rowMap
-     */
-    public String toJsonPretty() {
-        String json_raw = this.toJson();
-        String json_pretty = "{}";
-
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            Object json = mapper.readValue(json_raw, Object.class);
-
-            json_pretty = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-
-        } catch (IOException e) {
-            logger.error("Json io exception error: ", e);
-        }
-
-        return json_pretty;
-    }
-
 
     /**
      * Get the rowMap

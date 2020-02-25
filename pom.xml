@@ -23,10 +23,8 @@
     <properties>
         <build.number>SNAPSHOT</build.number>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jackson-asl-version>1.9.13</jackson-asl-version>
         <java-version>1.7</java-version>
-        <junit-version>3.8.1</junit-version>
-        <slf4j-version>1.7.21</slf4j-version>
+        <slf4j-version>1.7.30</slf4j-version>
         <supercsv-version>2.4.0</supercsv-version>
     </properties>
 
@@ -97,34 +95,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.sf.supercsv</groupId>
-            <artifactId>super-csv</artifactId>
-            <version>${supercsv-version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j-version}</version>
         </dependency>
-
         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>${jackson-asl-version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>${jackson-asl-version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit-version}</version>
-            <scope>test</scope>
+            <groupId>net.sf.supercsv</groupId>
+            <artifactId>super-csv</artifactId>
+            <version>${supercsv-version}</version>
         </dependency>
     </dependencies>
 
