@@ -6,7 +6,8 @@
 
     <groupId>org.openbmp.api</groupId>
     <artifactId>openbmp-api-message</artifactId>
-    <packaging>jar</packaging>
+    <version>0.1.0</version>
+    <packaging>bundle</packaging>
 
     <name>openbmp-api-message</name>
     <url>http://www.openbmp.org</url>
@@ -22,27 +23,77 @@
     <properties>
         <build.number>SNAPSHOT</build.number>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit-version>3.8.1</junit-version>
-        <supercsv-version>2.4.0</supercsv-version>
-        <slf4j-version>1.7.21</slf4j-version>
         <jackson-asl-version>1.9.13</jackson-asl-version>
+        <java-version>1.7</java-version>
+        <junit-version>3.8.1</junit-version>
+        <slf4j-version>1.7.21</slf4j-version>
+        <supercsv-version>2.4.0</supercsv-version>
     </properties>
 
-    <version>0.1.0-${build.number}</version>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>4.2.1</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <instructions>
+                            <Bundle-RequiredExecutionEnvironment>JavaSE-${java-version}
+                            </Bundle-RequiredExecutionEnvironment>
+                        </instructions>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java-version}</source>
+                    <target>${java-version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <doclint>none</doclint>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+            </plugin>
 
-		</plugins>
-	</build>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
