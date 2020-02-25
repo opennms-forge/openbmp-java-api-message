@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.openbmp.api</groupId>
-    <artifactId>openbmp-api-message</artifactId>
-    <version>0.1.0</version>
+    <groupId>org.opennms.bundles</groupId>
+    <artifactId>org.opennms.bundles.openbmp-api-message</artifactId>
+    <version>0.1.0_1</version>
     <packaging>bundle</packaging>
 
     <name>openbmp-api-message</name>
