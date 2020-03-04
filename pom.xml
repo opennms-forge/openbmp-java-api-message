@@ -11,6 +11,26 @@
 
     <name>openbmp-api-message</name>
     <url>http://www.openbmp.org</url>
+    <description>Implementation of the OpenBMP message bus specification</description>
+
+    <scm>
+        <url>https://github.com/opennms-forge/openbmp-java-api-message</url>
+        <connection>scm:git:git@github.com:opennms-forge/openbmp-java-api-message.git</connection>
+        <tag>v0.1.0_1</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>j-white</id>
+            <name>Jesse White</name>
+            <email>jesse@opennms.com</email>
+        </developer>
+        <developer>
+            <id>TimEvens</id>
+            <name>Tim Evens</name>
+            <email>tievens@cisco.com</email>
+        </developer>
+    </developers>
 
     <licenses>
         <license>
@@ -21,8 +41,8 @@
     </licenses>
 
     <properties>
-        <build.number>SNAPSHOT</build.number>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-version>1.7</java-version>
         <slf4j-version>1.7.30</slf4j-version>
         <supercsv-version>2.4.0</supercsv-version>
@@ -56,6 +76,18 @@
                     <target>${java-version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>openbmp-ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -91,7 +123,51 @@
             </plugin>
 
         </plugins>
+
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh-external</artifactId>
+                <version>3.3.4</version>
+            </extension>
+        </extensions>
+
     </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>openbmp-ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>openbmp-ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
